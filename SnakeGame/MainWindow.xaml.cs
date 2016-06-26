@@ -27,7 +27,7 @@ namespace SnakeGame
         // This list describes the body of the snake on the Canvas
         private List<Point> snakePoints = new List<Point>();
 
-        private Brush _snakeColor = Brushes.Brown;
+        private Brush _snakeColor = Brushes.Green;
 
         private enum Size
         {
@@ -55,7 +55,7 @@ namespace SnakeGame
         private int _direction = 0;
         private int _previousDirection = 0;
         private int _headSize = (int) Size.Thick;
-        private int _length = 0;
+        private int _length = 100;
         private int _score = 0;
         private Random _rnd = new Random();
 
@@ -73,21 +73,6 @@ namespace SnakeGame
             for (int n = 0; n < 10; n++)
                 paintBonus(n);
         }
-
-        private void paintBonus(int index)
-        {
-            Point bonusPoint = new Point(_rnd.Next(5,620),_rnd.Next(5,380));
-            Ellipse newEllipse = new Ellipse();
-            newEllipse.Fill = Brushes.Red;
-            newEllipse.Width = _headSize;
-            newEllipse.Height = _headSize;
-
-            Canvas.SetTop(newEllipse, bonusPoint.Y);
-            Canvas.SetLeft(newEllipse, bonusPoint.X);
-            paintCanvas.Children.Insert(index, newEllipse);
-            bonusPoints.Insert(index, bonusPoint);
-        }
-
         private void paintSnake(Point startingPoint)
         {
             Ellipse newEllipse = new Ellipse();
@@ -108,6 +93,22 @@ namespace SnakeGame
                 snakePoints.RemoveAt(count-_length);
             }
         }
+
+
+        private void paintBonus(int index)
+        {
+            Point bonusPoint = new Point(_rnd.Next(5, 620), _rnd.Next(5, 380));
+            Ellipse newEllipse = new Ellipse();
+            newEllipse.Fill = Brushes.Red;
+            newEllipse.Width = _headSize;
+            newEllipse.Height = _headSize;
+
+            Canvas.SetTop(newEllipse, bonusPoint.Y);
+            Canvas.SetLeft(newEllipse, bonusPoint.X);
+            paintCanvas.Children.Insert(index, newEllipse);
+            bonusPoints.Insert(index, bonusPoint);
+        }
+
 
        
 
@@ -133,9 +134,9 @@ namespace SnakeGame
                     break;
             }
 
-            if ((_currentPosition.X < 5) || (_currentPosition.X > 620) ||
-                    (_currentPosition.Y < 5) || (_currentPosition.Y > 380))
-                GameOver();
+            //if ((_currentPosition.X < 5) || (_currentPosition.X > 620) ||
+            //        (_currentPosition.Y < 5) || (_currentPosition.Y > 380))
+            //    GameOver();
 
             int n = 0;
             foreach (Point point in bonusPoints)
